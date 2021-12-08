@@ -1,34 +1,23 @@
 using namespace std;
 #include <iostream>
+#include <string.h>
+struct  tag_Friend
+{
+	char Name[10];
+	int Age;
+	double Height;
+};
 
 int main()
 {
-	int nRandom = 0; // 정수형 변수 선언
-	int nInput = 0;
-	nRandom = rand() % 9 + 1;
-	for (;;)
-	{
-		do
-		{
-			printf("숫자를 입력하세요");
-			scanf_s("%d", &nInput);
+	
+	short sArr[10] = { 1,2,3,4,5,6,7,8,9,10 };
+	int* pI = (int*)sArr;
+	int iData = *((short*)(pI + 2));
+	printf("%d\n", iData); //답은 5.
 
-			if (nInput == 999)
-				exit(0);
-			if (nInput == nRandom)
-			{
-				printf("맞췄습니다.\n");
-				exit(0);
-
-			}
-			else if (nInput > nRandom)
-			{
-				printf("입력한 숫자보다 작습니다.\n");
-			}
-			else
-			{
-				printf("입력한 숫자보다 큽니다.\n");
-			}
-		} while (nInput != nRandom);
-	}
+	char cArr[2] = { 1,1 };
+	short* pS = (short*)cArr;
+	iData = *pS;
+	printf("%d", iData); //답은 257/
 }
