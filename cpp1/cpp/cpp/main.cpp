@@ -40,13 +40,45 @@ void StrCat(wchar_t* pDest, unsigned int nBufferSize, const wchar_t* source)
 	}
 }
 
+//같을 경우 :0.
+//왼쪽이 클경우 1.
+//오른쪽이 클경우 -1.
+int StrCmp(const wchar_t* pLeft, const wchar_t* pRight)
+{
+	int nLeftLength = GetLength(pLeft);
+	int nRightLength = GetLength(pRight);
+	int nLoop = nLeftLength > nRightLength ? nRightLength : nLeftLength;
+	int nReturn = 0;
+
+	if (nLeftLength > nRightLength)
+	{
+		nReturn = 1;
+	}
+	else if (nLeftLength < nRightLength)
+	{
+		nReturn = -1;
+	}
+
+	for (int i = 0; i < nLoop; i++)
+	{
+		if (pLeft[i] < pRight[i])
+		{
+			return -1;
+		}
+		else if (pLeft[i] > pRight[i])
+		{
+			return 1;
+		}
+	}
+
+	return nReturn;
+}
+
 int main()
 {
-	wchar_t szString[100] = L"abc";
-	//wcscat_s(szString, 100, L"def");
-	StrCat(szString, 100, L"def");
+	int n = StrCmp(L"gbg", L"abb");
 
-	printf("%d", GetLength(szString));
+	printf("%d", n);
 }
 
 
