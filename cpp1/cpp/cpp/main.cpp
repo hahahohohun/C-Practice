@@ -1,80 +1,55 @@
 //using namespace std;
-#include <iostream>
-#include <wchar.h>
+#define _CRT_SECURE_NO_WARINGS
+#include <stdlib.h>
+#include <stdio.h>
 #define INF 100000
 
-int arr[INF];
-int count = 0;
-
-void AddBack(int n)
+typedef struct SNode
 {
-	arr[count] = n;
-	count++;
+	int data;
+	struct SNode* next;
+};
+
+SNode* head;
+
+void AddFront(SNode* sRootNode, int nData)
+{
+	SNode* sNewNode = (SNode*)malloc(sizeof(SNode));
+	sNewNode->data = nData;
+
+	sNewNode->next = sRootNode->next;
+	//printf_s("[%d]", head->next->data);
+
+	sRootNode->next = sNewNode;
 }
 
-void AddFirst(int n)
+void RemoveFront(SNode* sRootNode)
 {
-	for (int i = count; i >= 1; i--)
-	{
-		arr[i] = arr[i - 1];
-	}
-	arr[0] = n;
-	count++;
-}
-
-void AddAtIndex(int nIdx, int nData)
-{
-	for (int i = count; i >= nIdx; i--)
-	{
-		int nTempData = arr[i];
-		arr[i + 1] = nTempData;
-	}
-	arr[nIdx] = nData;
-}
-
-void RemoveFirst()
-{
-	printf("昏力等 data %d\n", arr[0]);
-	for (int i = 1; i < count; i++)
-	{
-		arr[i - 1] = arr[i];
-	}
-	arr[count - 1] = 0;
-	count--;
-}
-
-void RemoveBack()
-{
-	printf("昏力等 data %d\n", arr[count - 1]);
-	arr[count - 1] = 0;
-	count--;
-}
-
-void Show()
-{
-	int i = 0;
-	while (true)
-	{
-		if (arr[i] == 0)
-		{
-			break;
-		}
-		printf("%d\n", arr[i]);
-		i++;
-	}
-
+	SNode* sRemoveNode = sRootNode->next;
+	sRootNode->next = sRootNode->next->next;
+	free(sRemoveNode);
 }
 
 int main()
 {
-	//AddFirst(1);
-	//AddFirst(2);
-	//AddFirst(3);
-	AddBack(1);
-	AddBack(2);
-	AddBack(3);
-	AddBack(4);
-	RemoveFirst();
-	RemoveBack();
-	Show();
+	head = (SNode*)malloc(sizeof(SNode));
+	SNode* head2 = (SNode*)malloc(sizeof(SNode));
+	head2->data = 3;
+	head->next = head2;
+	head2->next = nullptr;
+	AddFront(head,1);
+	AddFront(head,0);
+	RemoveFront(head);
+
+	SNode* curNode = head->next;
+
+	while (true)
+	{
+		if (curNode == NULL)
+		{
+			break;
+		}
+		printf_s("%d\n", curNode->data);
+		curNode = curNode->next;
+	}
 }
