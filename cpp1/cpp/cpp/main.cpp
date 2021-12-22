@@ -7,49 +7,68 @@
 typedef struct SNode
 {
 	int data;
+	struct SNode* pre;
 	struct SNode* next;
 };
 
 SNode* head;
+SNode* tail;
 
-void AddFront(SNode* sRootNode, int nData)
+//오름 차순.
+void Insert(int nData)
 {
+	SNode* sCurNode = head->next;
+	while (sCurNode->data < nData && sCurNode != tail)
+	{
+		sCurNode = sCurNode->next;
+	}
+
 	SNode* sNewNode = (SNode*)malloc(sizeof(SNode));
 	sNewNode->data = nData;
-
-	sNewNode->next = sRootNode->next;
-	//printf_s("[%d]", head->next->data);
-
-	sRootNode->next = sNewNode;
+	SNode* preNode = sCurNode->pre;
+	preNode->next = sNewNode;
+	sNewNode->pre = preNode;
+	sNewNode->next = sCurNode;
+	sCurNode->pre = sNewNode;
 }
-
-void RemoveFront(SNode* sRootNode)
+//맨앞 노드 제거.
+void RemoveFront()
 {
-	SNode* sRemoveNode = sRootNode->next;
-	sRootNode->next = sRootNode->next->next;
+	if (head->next == tail)
+		printf_s("값이 있는 노드가 없음");
+
+	SNode* sRemoveNode = head->next;
+	head->next = sRemoveNode->next;
 	free(sRemoveNode);
 }
 
-int main()
+void ShowAll()
 {
-	head = (SNode*)malloc(sizeof(SNode));
-	SNode* head2 = (SNode*)malloc(sizeof(SNode));
-	head2->data = 3;
-	head->next = head2;
-	head2->next = nullptr;
-	AddFront(head,1);
-	AddFront(head,0);
-	RemoveFront(head);
-
-	SNode* curNode = head->next;
-
+	SNode* sCurNode = head->next;
 	while (true)
 	{
-		if (curNode == NULL)
+		if (sCurNode == tail)
 		{
 			break;
 		}
-		printf_s("%d\n", curNode->data);
-		curNode = curNode->next;
+		printf_s("%d\n",sCurNode->data);
+		sCurNode = sCurNode->next;
 	}
+}
+
+//오름차순
+int main()
+{
+	head = (SNode*)malloc(sizeof(SNode));
+	tail = (SNode*)malloc(sizeof(SNode));
+	head->next = tail;
+	tail->pre = head;
+	tail->next = nullptr;
+	Insert(1);
+	Insert(3);
+	Insert(5);
+	Insert(2);
+	RemoveFront();
+	ShowAll();
+
 }
