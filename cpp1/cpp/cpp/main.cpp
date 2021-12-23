@@ -2,73 +2,56 @@
 #define _CRT_SECURE_NO_WARINGS
 #include <stdlib.h>
 #include <stdio.h>
-#define INF 100000
+#define INT_MAX 100000
+#define SIZE 100
 
-typedef struct SNode
+
+void Swap(int* pA, int* pB)
 {
-	int data;
-	struct SNode* pre;
-	struct SNode* next;
-};
-
-SNode* head;
-SNode* tail;
-
-//오름 차순.
-void Insert(int nData)
-{
-	SNode* sCurNode = head->next;
-	while (sCurNode->data < nData && sCurNode != tail)
-	{
-		sCurNode = sCurNode->next;
-	}
-
-	SNode* sNewNode = (SNode*)malloc(sizeof(SNode));
-	sNewNode->data = nData;
-	SNode* preNode = sCurNode->pre;
-	preNode->next = sNewNode;
-	sNewNode->pre = preNode;
-	sNewNode->next = sCurNode;
-	sCurNode->pre = sNewNode;
-}
-//맨앞 노드 제거.
-void RemoveFront()
-{
-	if (head->next == tail)
-		printf_s("값이 있는 노드가 없음");
-
-	SNode* sRemoveNode = head->next;
-	head->next = sRemoveNode->next;
-	free(sRemoveNode);
+	int nTemp = *pA;
+	*pA = *pB;
+	*pB = nTemp;
 }
 
-void ShowAll()
-{
-	SNode* sCurNode = head->next;
-	while (true)
-	{
-		if (sCurNode == tail)
-		{
-			break;
-		}
-		printf_s("%d\n",sCurNode->data);
-		sCurNode = sCurNode->next;
-	}
-}
+int arry[SIZE];
 
-//오름차순
 int main()
 {
-	head = (SNode*)malloc(sizeof(SNode));
-	tail = (SNode*)malloc(sizeof(SNode));
-	head->next = tail;
-	tail->pre = head;
-	tail->next = nullptr;
-	Insert(1);
-	Insert(3);
-	Insert(5);
-	Insert(2);
-	RemoveFront();
-	ShowAll();
+	int  n, min, index;
+	scanf_s("%d", &n);
+	for (int i = 0; i < n; i++)
+	{
+		scanf_s("%d", &arry[i]);
+	}
 
+	//삽입정렬.
+	for (int i = 0; i < n - 1; i++)
+	{
+		int j = i;
+		while (j >= 0 && arry[j] > arry[j + 1])
+		{
+			Swap(&arry[j], &arry[j + 1]);
+			j--;
+		}
+	}
+
+	//선택정렬.
+	//for (int i = 0; i < n; i++)
+	//{
+	//	min = INT_MAX;
+	//	for (int j = 0; j < n; j++)
+	//	{
+	//		if (min > arry[j])
+	//		{
+	//			min = arry[j];
+	//			index = j;
+	//		}
+	//	}
+	//	Swap(&arry[i], &arry[index]);
+	//}
+
+	for (int i = 0; i < n; i++)
+	{
+		printf_s("%d ", arry[i]);
+	}
 }
