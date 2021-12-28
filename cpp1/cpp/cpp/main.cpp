@@ -1,57 +1,31 @@
-//using namespace std;
-#define _CRT_SECURE_NO_WARINGS
+using namespace std;
+#include <iostream>
 #include <stdlib.h>
 #include <stdio.h>
-#define INT_MAX 100000
-#define SIZE 100
+#include "Arr.h"
 
+// 변수
+// 지역(스택)
+// 전역,정적,외부(데이터)
 
-void Swap(int* pA, int* pB)
-{
-	int nTemp = *pA;
-	*pA = *pB;
-	*pB = nTemp;
-}
-
-int arry[SIZE];
+//메모리 영역
+// 스택
+// 데이터
+// ROM
+// 힙 영역(동적할당)
 
 int main()
 {
-	int  n, min, index;
-	scanf_s("%d", &n);
-	for (int i = 0; i < n; i++)
+	tArr t;
+	InitArr(&t);
+
+	for (int i = 0; i < 10; i++)
 	{
-		scanf_s("%d", &arry[i]);
+		PushBack(&t, 1);
 	}
 
-	//삽입정렬.
-	for (int i = 0; i < n - 1; i++)
-	{
-		int j = i;
-		while (j >= 0 && arry[j] > arry[j + 1])
-		{
-			Swap(&arry[j], &arry[j + 1]);
-			j--;
-		}
-	}
 
-	//선택정렬.
-	//for (int i = 0; i < n; i++)
-	//{
-	//	min = INT_MAX;
-	//	for (int j = 0; j < n; j++)
-	//	{
-	//		if (min > arry[j])
-	//		{
-	//			min = arry[j];
-	//			index = j;
-	//		}
-	//	}
-	//	Swap(&arry[i], &arry[index]);
-	//}
+	ReleaseArr(&t);
 
-	for (int i = 0; i < n; i++)
-	{
-		printf_s("%d ", arry[i]);
-	}
+	return 0;
 }
