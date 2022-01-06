@@ -15,6 +15,25 @@ using namespace std;
 // ROM
 // 힙 영역(동적할당)
 
+void BubbleSort(int* pData, int nCount)
+{
+	if (nCount <= 1)
+		return;
+
+	for (int i = 0; i < nCount; i++)
+	{
+		for (int j = 0; j < nCount; j++)
+		{
+			if (pData[i] < pData[j])
+			{
+				int nTemp = pData[i];
+				pData[i] = pData[j];
+				pData[j] = nTemp;
+			}
+		}
+	}
+}
+
 int main()
 {
 	tArr t;
@@ -27,15 +46,19 @@ int main()
 		int nRand = rand() % 100 + 1;
 		PushBack(&t, nRand);
 	}
+	for (int i = 0; i < t.nCount; i++)
+	{
+		printf("%d\n", t.nPtr[i]);
+	}
+	printf("정렬후\n");
 
-	Sort(&t);
+	int iArr[] = { 87,66,55,100,1,5,10,8,9,99 };
+	Sort(&t, BubbleSort);
 
 	for (int i = 0; i < t.nCount; i++)
 	{
 		printf("%d\n", t.nPtr[i]);
 	}
-
-	ReleaseArr(&t);
 
 	return 0;
 }

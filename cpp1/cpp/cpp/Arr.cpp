@@ -49,26 +49,13 @@ void ReleaseArr(tArr* parr)
 
 
 //오름차순 정렬
-void Sort(tArr* parr)
+void Sort(tArr* pArr, void(*SortFunc)(int*, int))
 {
-	if (parr->nCount <= 1)
-		return;
-
-	for (int i = 0; i < parr->nCount; i++)
+	if (pArr->nCount <= 1)
 	{
-		for (int j = 0; j < parr->nCount; j++)
-		{
-			if (parr->nPtr[i] < parr->nPtr[j])
-			{
-				int nTemp = parr->nPtr[i];
-				parr->nPtr[i] = parr->nPtr[j];
-				parr->nPtr[j] = nTemp;
-			}
-
-		}
-
+		return;
 	}
-
+	SortFunc(pArr->nPtr, pArr->nCount);
 }
 
 
