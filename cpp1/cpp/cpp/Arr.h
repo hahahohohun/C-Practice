@@ -18,3 +18,5 @@ void Reallocate(tArr* parr);
 
 //메모리해제.
 void ReleaseArr(tArr* parr);
+
+void Sort(tArr* parr);

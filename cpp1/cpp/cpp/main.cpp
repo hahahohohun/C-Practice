@@ -1,5 +1,6 @@
 using namespace std;
 #include <iostream>
+#include <time.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include "Arr.h"
@@ -19,11 +20,20 @@ int main()
 	tArr t;
 	InitArr(&t);
 
+	//³­¼ö.
+	srand(time(nullptr));
 	for (int i = 0; i < 10; i++)
 	{
-		PushBack(&t, 1);
+		int nRand = rand() % 100 + 1;
+		PushBack(&t, nRand);
 	}
 
+	Sort(&t);
+
+	for (int i = 0; i < t.nCount; i++)
+	{
+		printf("%d\n", t.nPtr[i]);
+	}
 
 	ReleaseArr(&t);
 
