@@ -4,7 +4,7 @@ using namespace std;
 #include <stdlib.h>
 #include <stdio.h>
 #include "Arr.h"
-
+#include "LinkedList.h"
 // 변수
 // 지역(스택)
 // 전역,정적,외부(데이터)
@@ -36,29 +36,19 @@ void BubbleSort(int* pData, int nCount)
 
 int main()
 {
-	tArr t;
-	InitArr(&t);
+	tLinkedList list = {};
+	InitList(&list);
+	PushBack(&list, 100);
+	PushBack(&list, 200);
+	PushBack(&list, 300);
 
-	//난수.
-	srand(time(nullptr));
-	for (int i = 0; i < 10; i++)
+	tNode* node = list.pHeadNode;
+	for (int i = 0; i < list.nCount; i++)
 	{
-		int nRand = rand() % 100 + 1;
-		PushBack(&t, nRand);
-	}
-	for (int i = 0; i < t.nCount; i++)
-	{
-		printf("%d\n", t.nPtr[i]);
-	}
-	printf("정렬후\n");
-
-	int iArr[] = { 87,66,55,100,1,5,10,8,9,99 };
-	Sort(&t, BubbleSort);
-
-	for (int i = 0; i < t.nCount; i++)
-	{
-		printf("%d\n", t.nPtr[i]);
+		printf("%d\n", node->nData);
+		node = node->pNextNode;
 	}
 
+	ReleaseList(&list);
 	return 0;
 }
